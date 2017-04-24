@@ -16,6 +16,39 @@ angular.module('starter.services')
         }
         tasks.push(task);
         window.localStorage['tasks'] = angular.toJson(tasks);
+      },
+      complete: function(task) {
+        var tasks = [];
+        var taskString = window.localStorage['tasks'];
+        if(taskString) {
+          tasks = angular.fromJson(taskString);
+        }
+        var index;
+        for (var i = 0; i < tasks.length; ++i)
+          if (tasks[i].title === task.title) {
+            index = i;
+            break;
+          }
+        tasks.splice(index, 1);
+        tasks.push(task);
+        window.localStorage['tasks'] = angular.toJson(tasks);
+        return index;
+      },
+      delete: function(task) {
+        var tasks = [];
+        var taskString = window.localStorage['tasks'];
+        if(taskString) {
+          tasks = angular.fromJson(taskString);
+        }
+        var index;
+        for (var i = 0; i < tasks.length; ++i)
+          if (tasks[i].title === task.title) {
+            index = i;
+            break;
+          }
+        tasks.splice(index, 1);
+        window.localStorage['tasks'] = angular.toJson(tasks);
+        return index;
       }
     }
   })
